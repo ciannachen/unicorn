@@ -2,9 +2,9 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const startButton = document.getElementById("startButton");
 
-const paddleHitSound = new Audio('paddle_hit.wav');
-const brickHitSound = new Audio('brick_hit.wav');
-const wallHitSound = new Audio('wall_hit.wav');
+const paddleHitSound = new Audio('hit.wav');
+const brickHitSound = paddleHitSound;
+const wallHitSound = paddleHitSound;
 
 // Set canvas size to fill the browser window
 function resizeCanvas() {
