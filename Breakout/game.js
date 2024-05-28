@@ -1,4 +1,4 @@
-const backgroundMusic = document.getElementById("backgroundMusic");
+// const backgroundMusic = document.getElementById("backgroundMusic");
 const winSound = document.getElementById("winSound");
 
 // Commented out background music volume setting and play function
