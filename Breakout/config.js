@@ -43,7 +43,7 @@ function updateGameElements() {
 
     // Randomize the initial direction of the ball
     const angle = Math.random() * Math.PI / 3 + Math.PI / 6; // Random angle between 30 and 150 degrees
-    const speed = canvas.width * 0.15;
+    const speed = canvas.width * 0.015;
     dx = speed * Math.cos(angle) * (Math.random() < 0.5 ? -1 : 1); // Randomize the horizontal direction
     dy = -speed * Math.sin(angle); // Ensure it initially moves upward
 
