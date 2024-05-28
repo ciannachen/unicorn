@@ -1,0 +1,17 @@
+const brickConfig = [
+    { row: 0, col: 0, color: "#FF5733" },
+    { row: 0, col: 1, color: "#FF5733" },
+    { row: 0, col: 2, color: "#FF5733" },
+    { row: 0, col: 3, color: "#FF5733" },
+    { row: 0, col: 4, color: "#FF5733" },
+    { row: 1, col: 0, color: "#33FF57" },
+    { row: 1, col: 1, color: "#33FF57" },
+    { row: 1, col: 2, color: "#33FF57" },
+    { row: 1, col: 3, color: "#33FF57" },
+    { row: 1, col: 4, color: "#33FF57" },
+    { row: 2, col: 0, color: "#3357FF" },
+    { row: 2, col: 1, color: "#3357FF" },
+    { row: 2, col: 2, color: "#3357FF" },
+    { row: 2, col: 3, color: "#3357FF" },
+    { row: 2, col: 4, color: "#3357FF" },
+];

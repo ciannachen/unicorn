@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Arial', sans-serif;
+}
+
+canvas {
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#startButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #ff9800;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 5px #d08700;
+}
+
+#startButton:active {
+    box-shadow: 0 3px #d08700;
+    transform: translateY(2px);
+}
