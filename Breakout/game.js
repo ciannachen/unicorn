@@ -1,7 +1,17 @@
 startButton.addEventListener("click", () => {
     startButton.style.display = 'none'; // Hide the start button
     resizeCanvas(); // Ensure the canvas is correctly sized
-    draw(); // Start the game loop
+
+    // Unlock audio context
+    paddleHitSound.play().then(() => {
+        paddleHitSound.pause();
+        paddleHitSound.currentTime = 0;
+        console.log('Audio context unlocked');
+        draw(); // Start the game loop
+    }).catch(err => {
+        console.error("Error in unlocking audio context: ", err);
+        draw(); // Continue drawing even if the audio context unlock fails
+    });
 });
 
 function collisionDetection() {
