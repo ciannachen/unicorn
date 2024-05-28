@@ -40,9 +40,13 @@ function updateGameElements() {
     x = canvas.width / 2;
     const paddleYOffset = canvas.height * 0.04; // Move paddle up by 4% of the screen height
     y = canvas.height - paddleYOffset - paddleHeight - ballRadius; // Start the ball above the paddle
+
     // Randomize the initial direction of the ball
-    dx = (Math.random() < 0.5 ? -1 : 1) * canvas.width * 0.01;
-    dy = -canvas.height * 0.015; // Ensure it initially moves upward
+    const angle = Math.random() * Math.PI / 3 + Math.PI / 6; // Random angle between 30 and 150 degrees
+    const speed = canvas.width * 0.15;
+    dx = speed * Math.cos(angle) * (Math.random() < 0.5 ? -1 : 1); // Randomize the horizontal direction
+    dy = -speed * Math.sin(angle); // Ensure it initially moves upward
+
     paddleHeight = canvas.height * 0.02;
     paddleWidth = canvas.width * 0.40; // Set paddle width to 40% of canvas width
     paddleX = (canvas.width - paddleWidth) / 2;
