@@ -64,32 +64,18 @@ function drawMessage(message) {
 }
 
 function drawTrophy() {
-    ctx.fillStyle = "#FFD700"; // Gold color
+    const trophyIcon = document.getElementById('trophyIcon');
+    const iconWidth = 100;
+    const iconHeight = 100;
+    const offsetY = 100; // Adjust this value as needed to move the trophy up
 
-    // Base
-    ctx.fillRect(canvas.width / 2 - 20, canvas.height / 2 + 10, 40, 10);
-    ctx.fillRect(canvas.width / 2 - 15, canvas.height / 2, 30, 10);
+    trophyIcon.onload = function() {
+        ctx.drawImage(trophyIcon, (canvas.width - iconWidth) / 2, (canvas.height - iconHeight) / 2 - offsetY, iconWidth, iconHeight);
+    };
 
-    // Stem
-    ctx.fillRect(canvas.width / 2 - 5, canvas.height / 2 - 40, 10, 40);
-
-    // Handles
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 25, canvas.height / 2 - 40);
-    ctx.quadraticCurveTo(canvas.width / 2 - 35, canvas.height / 2 - 60, canvas.width / 2 - 25, canvas.height / 2 - 70);
-    ctx.moveTo(canvas.width / 2 + 25, canvas.height / 2 - 40);
-    ctx.quadraticCurveTo(canvas.width / 2 + 35, canvas.height / 2 - 60, canvas.width / 2 + 25, canvas.height / 2 - 70);
-    ctx.strokeStyle = "#FFD700";
-    ctx.stroke();
-
-    // Cup
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 25, canvas.height / 2 - 40);
-    ctx.lineTo(canvas.width / 2 - 15, canvas.height / 2 - 60);
-    ctx.lineTo(canvas.width / 2 + 15, canvas.height / 2 - 60);
-    ctx.lineTo(canvas.width / 2 + 25, canvas.height / 2 - 40);
-    ctx.closePath();
-    ctx.fill();
+    if (trophyIcon.complete) {
+        ctx.drawImage(trophyIcon, (canvas.width - iconWidth) / 2, (canvas.height - iconHeight) / 2 - offsetY, iconWidth, iconHeight);
+    }
 }
 
 function draw() {
