@@ -1,21 +1,25 @@
-body {
+html, body {
+    height: 100%;
+    margin: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     font-family: 'Arial', sans-serif;
+    overflow: hidden; /* Prevents scrolling */
 }
 
 canvas {
+    display: block; /* Ensures no extra space below the canvas */
     border: 2px solid #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #startButton {
-    margin-top: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -24,9 +28,10 @@ canvas {
     color: white;
     border-radius: 5px;
     box-shadow: 0 5px #d08700;
+    z-index: 1; /* Ensures button is on top of the canvas */
 }
 
 #startButton:active {
     box-shadow: 0 3px #d08700;
-    transform: translateY(2px);
+    transform: translate(-50%, -48%);
 }
