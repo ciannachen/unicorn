@@ -31,14 +31,21 @@ function collisionDetection() {
     }
 }
 
-canvas.addEventListener("click", function(event) {
+canvas.addEventListener("click", handleCanvasClickOrTouch);
+canvas.addEventListener("touchstart", handleCanvasClickOrTouch);
+
+function handleCanvasClickOrTouch(event) {
+    event.preventDefault();
     const buttonWidth = 10 * canvas.width / 100; // 10% of the canvas width
     const buttonHeight = 5 * canvas.height / 100; // 5% of the canvas height
     const buttonX = (canvas.width - buttonWidth) / 2;
     const buttonY = (canvas.height / 2) + (canvas.height / 10); // Adjust position slightly
     const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
+    const mouseX = (event.clientX || event.touches[0].clientX) - rect.left;
+    const mouseY = (event.clientY || event.touches[0].clientY) - rect.top;
+
+    console.log('MouseX:', mouseX, 'MouseY:', mouseY); // Debug log
+    console.log('ButtonX:', buttonX, 'ButtonY:', buttonY, 'ButtonWidth:', buttonWidth, 'ButtonHeight:', buttonHeight); // Debug log
 
     if (
         mouseX > buttonX &&
@@ -46,33 +53,15 @@ canvas.addEventListener("click", function(event) {
         mouseY > buttonY &&
         mouseY < buttonY + buttonHeight
     ) {
+        console.log('Restart button clicked or touched'); // Debug log
         resetGame();
     }
-});
-
-canvas.addEventListener("touchstart", function(event) {
-    const buttonWidth = 10 * canvas.width / 100; // 10% of the canvas width
-    const buttonHeight = 5 * canvas.height / 100; // 5% of the canvas height
-    const buttonX = (canvas.width - buttonWidth) / 2;
-    const buttonY = (canvas.height / 2) + (canvas.height / 10); // Adjust position slightly
-    const rect = canvas.getBoundingClientRect();
-    const touch = event.touches[0];
-    const mouseX = touch.clientX - rect.left;
-    const mouseY = touch.clientY - rect.top;
-
-    if (
-        mouseX > buttonX &&
-        mouseX < buttonX + buttonWidth &&
-        mouseY > buttonY &&
-        mouseY < buttonY + buttonHeight
-    ) {
-        resetGame();
-    }
-});
+}
 
 function resetGame() {
     gameOver = false;
     gameWon = false;
     updateGameElements();
     draw();
+    console.log('Game reset'); // Debug log
 }
