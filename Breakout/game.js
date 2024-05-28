@@ -1,17 +1,7 @@
 startButton.addEventListener("click", () => {
     startButton.style.display = 'none'; // Hide the start button
     resizeCanvas(); // Ensure the canvas is correctly sized
-
-    // Unlock audio context
-    paddleHitSound.play().then(() => {
-        paddleHitSound.pause();
-        paddleHitSound.currentTime = 0;
-        console.log('Audio context unlocked');
-        draw(); // Start the game loop
-    }).catch(err => {
-        console.error("Error in unlocking audio context: ", err);
-        draw(); // Continue drawing even if the audio context unlock fails
-    });
+    draw(); // Start the game loop
 });
 
 function collisionDetection() {
@@ -39,4 +29,30 @@ function collisionDetection() {
         gameWon = true;
         gameOver = true;
     }
+}
+
+canvas.addEventListener("click", function(event) {
+    const buttonWidth = 100;
+    const buttonHeight = 50;
+    const buttonX = (canvas.width - buttonWidth) / 2;
+    const buttonY = (canvas.height + 50) / 2;
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    if (
+        mouseX > buttonX &&
+        mouseX < buttonX + buttonWidth &&
+        mouseY > buttonY &&
+        mouseY < buttonY + buttonHeight
+    ) {
+        resetGame();
+    }
+});
+
+function resetGame() {
+    gameOver = false;
+    gameWon = false;
+    updateGameElements();
+    draw();
 }
