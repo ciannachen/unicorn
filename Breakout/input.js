@@ -44,10 +44,10 @@ function touchEndHandler(e) {
 }
 
 function updateTouchDirection() {
-    if (touchX < paddleX) {
+    if (touchX < paddleX + paddleWidth / 2) {
         leftPressed = true;
         rightPressed = false;
-    } else if (touchX > paddleX + paddleWidth) {
+    } else if (touchX > paddleX + paddleWidth / 2) {
         rightPressed = true;
         leftPressed = false;
     } else {
