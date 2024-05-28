@@ -42,7 +42,7 @@ function updateGameElements() {
     dx = canvas.width * 0.01;
     dy = -canvas.height * 0.015;
     paddleHeight = canvas.height * 0.02;
-    paddleWidth = canvas.width * 0.15;
+    paddleWidth = canvas.width * 0.3;
     paddleX = (canvas.width - paddleWidth) / 2;
     brickWidth = (canvas.width / brickColumnCount) - (brickPadding * 2);
     brickHeight = canvas.height * 0.05;
