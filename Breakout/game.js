@@ -1,16 +1,7 @@
 startButton.addEventListener("click", () => {
     startButton.style.display = 'none'; // Hide the start button
     resizeCanvas(); // Ensure the canvas is correctly sized
-    
-    // Play a silent sound to unlock the audio context in mobile browsers
-    const silentSound = new Audio('data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...');
-    silentSound.play().then(() => {
-        console.log('Silent audio played successfully'); // Debug log
-        draw();
-    }).catch(err => {
-        console.error("Error in playing silent audio: ", err);
-        draw(); // Continue drawing even if the silent sound fails
-    });
+    draw(); // Start the game loop
 });
 
 function collisionDetection() {
@@ -29,6 +20,7 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     brickHitSound.play();
+                    console.log('Brick hit sound played'); // Debug log
                 }
             }
         }
@@ -49,14 +41,17 @@ function draw() {
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
         wallHitSound.play();
+        console.log('Wall hit sound played'); // Debug log
     }
     if (y + dy < ballRadius) {
         dy = -dy;
         wallHitSound.play();
+        console.log('Wall hit sound played'); // Debug log
     } else if (y + dy > canvas.height - ballRadius) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
             paddleHitSound.play();
+            console.log('Paddle hit sound played'); // Debug log
         } else {
             gameOver = true;
         }
@@ -81,4 +76,5 @@ function draw() {
     } else {
         requestAnimationFrame(draw);
     }
+    console.log('Draw loop executed'); // Debug log
 }
