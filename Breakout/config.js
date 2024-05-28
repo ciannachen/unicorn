@@ -38,13 +38,13 @@ function resizeCanvas() {
 function updateGameElements() {
     ballRadius = canvas.width * 0.02;
     x = canvas.width / 2;
-    y = canvas.height - 30;
+    const paddleYOffset = canvas.height * 0.04; // Move paddle up by 4% of the screen height
+    y = canvas.height - paddleYOffset - paddleHeight - ballRadius; // Start the ball above the paddle
     dx = canvas.width * 0.01;
     dy = -canvas.height * 0.015;
     paddleHeight = canvas.height * 0.02;
     paddleWidth = canvas.width * 0.40; // Set paddle width to 40% of canvas width
     paddleX = (canvas.width - paddleWidth) / 2;
-    const paddleYOffset = canvas.height * 0.08; // Move paddle up by 8% of the screen height
     brickWidth = (canvas.width / brickColumnCount) - (brickPadding * 2);
     brickHeight = canvas.height * 0.05;
     bricks = [];
@@ -57,15 +57,6 @@ function updateGameElements() {
     console.log('Game elements updated'); // Debug log
 }
 
-// Adjust the paddle drawing position to account for the new offset
-function drawPaddle() {
-    const paddleYOffset = canvas.height * 0.08; // Move paddle up by 8% of the screen height
-    ctx.beginPath();
-    ctx.rect(paddleX, canvas.height - paddleHeight - paddleYOffset, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#ff5722"; // Deep orange color for the paddle
-    ctx.fill();
-    ctx.closePath();
-}
 
 function getRandomColor() {
     const colors = ["#e74c3c", "#8e44ad", "#3498db", "#1abc9c", "#f1c40f", "#e67e22"];

@@ -1,3 +1,54 @@
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    collisionDetection();
+
+    const paddleYOffset = canvas.height * 0.04;
+
+    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+        wallHitSound.play();
+        console.log('Wall hit sound played'); // Debug log
+    }
+    if (y + dy < ballRadius) {
+        dy = -dy;
+        wallHitSound.play();
+        console.log('Wall hit sound played'); // Debug log
+    } else if (y + dy > canvas.height - ballRadius - paddleHeight - paddleYOffset) {
+        if (x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+            paddleHitSound.play();
+            console.log('Paddle hit sound played'); // Debug log
+        } else {
+            gameOver = true;
+        }
+    }
+
+    x += dx;
+    y += dy;
+
+    if (rightPressed && paddleX < canvas.width - paddleWidth) {
+        paddleX += 7;
+    } else if (leftPressed && paddleX > 0) {
+        paddleX -= 7;
+    }
+
+    if (gameOver) {
+        if (gameWon) {
+            drawMessage("You Win!");
+            drawTrophy();
+        } else {
+            drawMessage("Game Over");
+        }
+    } else {
+        requestAnimationFrame(draw);
+    }
+    console.log('Draw loop executed'); // Debug log
+}
+
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -7,8 +58,9 @@ function drawBall() {
 }
 
 function drawPaddle() {
+    const paddleYOffset = canvas.height * 0.04; // Move paddle up by 4% of the screen height
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+    ctx.rect(paddleX, canvas.height - paddleHeight - paddleYOffset, paddleWidth, paddleHeight);
     ctx.fillStyle = "#ff5722"; // Deep orange color for the paddle
     ctx.fill();
     ctx.closePath();
