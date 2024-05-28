@@ -42,8 +42,9 @@ function updateGameElements() {
     dx = canvas.width * 0.01;
     dy = -canvas.height * 0.015;
     paddleHeight = canvas.height * 0.02;
-    paddleWidth = canvas.width * 0.4;
+    paddleWidth = canvas.width * 0.40; // Set paddle width to 40% of canvas width
     paddleX = (canvas.width - paddleWidth) / 2;
+    const paddleYOffset = canvas.height * 0.08; // Move paddle up by 8% of the screen height
     brickWidth = (canvas.width / brickColumnCount) - (brickPadding * 2);
     brickHeight = canvas.height * 0.05;
     bricks = [];
@@ -54,6 +55,16 @@ function updateGameElements() {
         }
     }
     console.log('Game elements updated'); // Debug log
+}
+
+// Adjust the paddle drawing position to account for the new offset
+function drawPaddle() {
+    const paddleYOffset = canvas.height * 0.08; // Move paddle up by 8% of the screen height
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height - paddleHeight - paddleYOffset, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#ff5722"; // Deep orange color for the paddle
+    ctx.fill();
+    ctx.closePath();
 }
 
 function getRandomColor() {
