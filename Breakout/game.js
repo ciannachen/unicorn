@@ -1,8 +1,29 @@
-startButton.addEventListener("click", () => {
+const backgroundMusic = document.getElementById("backgroundMusic");
+const winSound = document.getElementById("winSound");
+
+// Set the background music volume to a lower level
+backgroundMusic.volume = 0.4; // Adjust this value as needed
+
+function playBackgroundMusic() {
+    if (backgroundMusic.paused) {
+        backgroundMusic.play().catch(error => {
+            console.error("Failed to play background music:", error);
+        });
+    }
+}
+
+function startGame() {
     startButton.style.display = 'none'; // Hide the start button
+    if (backgroundMusic.paused) {
+        backgroundMusic.play().catch(error => {
+            console.error("Failed to play background music:", error);
+        });
+    }
     resizeCanvas(); // Ensure the canvas is correctly sized
     draw(); // Start the game loop
-});
+}
+
+startButton.addEventListener("click", startGame);
 
 function collisionDetection() {
     let remainingBricks = 0;
@@ -28,6 +49,7 @@ function collisionDetection() {
     if (remainingBricks === 0) {
         gameWon = true;
         gameOver = true;
+        winSound.play(); // Play the win sound
     }
 }
 
@@ -35,7 +57,6 @@ canvas.addEventListener("click", handleCanvasClickOrTouch);
 canvas.addEventListener("touchstart", handleCanvasClickOrTouch);
 
 function handleCanvasClickOrTouch(event) {
-    event.preventDefault();
     const buttonWidth = 10 * canvas.width / 100; // 10% of the canvas width
     const buttonHeight = 5 * canvas.height / 100; // 5% of the canvas height
     const buttonX = (canvas.width - buttonWidth) / 2;
@@ -65,3 +86,4 @@ function resetGame() {
     draw();
     console.log('Game reset'); // Debug log
 }
+

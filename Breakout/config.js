@@ -2,6 +2,18 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const startButton = document.getElementById("startButton");
 
+const paddleHitSound = new Audio('paddle_hit.wav');
+const brickHitSound = new Audio('brick_hit.wav');
+const wallHitSound = new Audio('wall_hit.wav');
+
+// Set canvas size to fill the browser window
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    updateGameElements();
+    console.log('Canvas resized: ', canvas.width, canvas.height); // Debug log
+}
+
 let ballRadius;
 let x;
 let y;
@@ -22,18 +34,7 @@ const brickOffsetLeft = 30;
 let bricks = [];
 let gameOver = false;
 let gameWon = false;
-
-const paddleHitSound = new Audio('paddle_hit.wav');
-const brickHitSound = new Audio('brick_hit.wav');
-const wallHitSound = new Audio('wall_hit.wav');
-
-// Set canvas size to fill the browser window
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    updateGameElements();
-    console.log('Canvas resized: ', canvas.width, canvas.height); // Debug log
-}
+let previousPaddleX;
 
 function updateGameElements() {
     ballRadius = canvas.width * 0.02;
@@ -43,13 +44,15 @@ function updateGameElements() {
 
     // Randomize the initial direction of the ball
     const angle = Math.random() * Math.PI / 3 + Math.PI / 6; // Random angle between 30 and 150 degrees
-    const speed = canvas.width * 0.015;
+    const speed = canvas.width * 0.01;
     dx = speed * Math.cos(angle) * (Math.random() < 0.5 ? -1 : 1); // Randomize the horizontal direction
     dy = -speed * Math.sin(angle); // Ensure it initially moves upward
 
     paddleHeight = canvas.height * 0.02;
     paddleWidth = canvas.width * 0.40; // Set paddle width to 40% of canvas width
     paddleX = (canvas.width - paddleWidth) / 2;
+    previousPaddleX = paddleX; // Initialize previousPaddleX
+
     brickWidth = (canvas.width / brickColumnCount) - (brickPadding * 2);
     brickHeight = canvas.height * 0.05;
     bricks = [];
@@ -61,6 +64,7 @@ function updateGameElements() {
     }
     console.log('Game elements updated'); // Debug log
 }
+
 
 
 

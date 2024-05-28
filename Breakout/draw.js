@@ -113,6 +113,22 @@ function draw() {
     } else if (y + dy > canvas.height - ballRadius - paddleHeight - paddleYOffset) {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
+
+            // Adjust dx based on paddle movement
+            const paddleMovement = paddleX - previousPaddleX;
+            const maxAngle = Math.PI / 4; // Maximum angle deviation (45 degrees)
+            const angle = maxAngle * (paddleMovement / paddleWidth);
+            dx += angle;
+
+            // Add a small random angle adjustment to prevent the ball from getting stuck
+            const randomAdjustment = (Math.random() - 0.5) * 0.1;
+            dx += randomAdjustment;
+
+            // Ensure dx is not zero
+            if (dx === 0) {
+                dx = (Math.random() - 0.5) * 2;
+            }
+
             paddleHitSound.play();
             console.log('Paddle hit sound played'); // Debug log
         } else {
@@ -124,9 +140,13 @@ function draw() {
     y += dy;
 
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
+        previousPaddleX = paddleX; // Update previous paddle position
         paddleX += 7;
     } else if (leftPressed && paddleX > 0) {
+        previousPaddleX = paddleX; // Update previous paddle position
         paddleX -= 7;
+    } else {
+        previousPaddleX = paddleX; // Ensure previousPaddleX is always updated
     }
 
     if (gameOver) {
@@ -139,5 +159,4 @@ function draw() {
     } else {
         requestAnimationFrame(draw);
     }
-    console.log('Draw loop executed'); // Debug log
 }
