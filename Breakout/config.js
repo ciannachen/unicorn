@@ -32,6 +32,7 @@ function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     updateGameElements();
+    console.log('Canvas resized: ', canvas.width, canvas.height); // Debug log
 }
 
 function updateGameElements() {
@@ -52,6 +53,7 @@ function updateGameElements() {
             bricks[c][r] = { x: 0, y: 0, status: 1, color: getRandomColor() };
         }
     }
+    console.log('Game elements updated'); // Debug log
 }
 
 function getRandomColor() {

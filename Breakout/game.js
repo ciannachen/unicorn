@@ -5,6 +5,7 @@ startButton.addEventListener("click", () => {
     // Play a silent sound to unlock the audio context in mobile browsers
     const silentSound = new Audio('data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...');
     silentSound.play().then(() => {
+        console.log('Silent audio played successfully'); // Debug log
         draw();
     }).catch(err => {
         console.error("Error in playing silent audio: ", err);
