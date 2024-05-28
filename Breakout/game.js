@@ -32,10 +32,10 @@ function collisionDetection() {
 }
 
 canvas.addEventListener("click", function(event) {
-    const buttonWidth = 100;
-    const buttonHeight = 50;
+    const buttonWidth = 10 * canvas.width / 100; // 10% of the canvas width
+    const buttonHeight = 5 * canvas.height / 100; // 5% of the canvas height
     const buttonX = (canvas.width - buttonWidth) / 2;
-    const buttonY = (canvas.height + 50) / 2;
+    const buttonY = (canvas.height / 2) + (canvas.height / 10); // Adjust position slightly
     const rect = canvas.getBoundingClientRect();
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;

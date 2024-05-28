@@ -34,10 +34,10 @@ function drawBricks() {
 }
 
 function drawRestartButton() {
-    const buttonWidth = 100;
-    const buttonHeight = 50;
+    const buttonWidth = 10 * canvas.width / 100; // 10% of the canvas width
+    const buttonHeight = 5 * canvas.height / 100; // 5% of the canvas height
     const buttonX = (canvas.width - buttonWidth) / 2;
-    const buttonY = (canvas.height + 50) / 2;
+    const buttonY = (canvas.height / 2) + (canvas.height / 10); // Adjust position slightly
 
     ctx.beginPath();
     ctx.rect(buttonX, buttonY, buttonWidth, buttonHeight);
@@ -45,17 +45,17 @@ function drawRestartButton() {
     ctx.fill();
     ctx.closePath();
 
-    ctx.font = "20px Arial";
+    ctx.font = "2em Arial";
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
     ctx.fillText("Restart", buttonX + buttonWidth / 2, buttonY + buttonHeight / 2 + 7);
 }
 
 function drawMessage(message) {
-    ctx.font = "24px Arial";
+    ctx.font = "2em Arial";
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
-    ctx.fillText(message, canvas.width / 2, canvas.height / 2);
+    ctx.fillText(message, canvas.width / 2, canvas.height / 2 - 20);
     drawRestartButton();
 }
 
@@ -63,27 +63,27 @@ function drawTrophy() {
     ctx.fillStyle = "#FFD700"; // Gold color
 
     // Base
-    ctx.fillRect(canvas.width / 2 - 20, canvas.height / 2 + 10, 40, 10);
-    ctx.fillRect(canvas.width / 2 - 15, canvas.height / 2, 30, 10);
+    ctx.fillRect(canvas.width / 2 - 2, canvas.height / 2 + 1, 4, 1);
+    ctx.fillRect(canvas.width / 2 - 1.5, canvas.height / 2, 3, 1);
 
     // Stem
-    ctx.fillRect(canvas.width / 2 - 5, canvas.height / 2 - 40, 10, 40);
+    ctx.fillRect(canvas.width / 2 - 0.5, canvas.height / 2 - 4, 1, 4);
 
     // Handles
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 25, canvas.height / 2 - 40);
-    ctx.quadraticCurveTo(canvas.width / 2 - 35, canvas.height / 2 - 60, canvas.width / 2 - 25, canvas.height / 2 - 70);
-    ctx.moveTo(canvas.width / 2 + 25, canvas.height / 2 - 40);
-    ctx.quadraticCurveTo(canvas.width / 2 + 35, canvas.height / 2 - 60, canvas.width / 2 + 25, canvas.height / 2 - 70);
+    ctx.moveTo(canvas.width / 2 - 2.5, canvas.height / 2 - 4);
+    ctx.quadraticCurveTo(canvas.width / 2 - 3.5, canvas.height / 2 - 6, canvas.width / 2 - 2.5, canvas.height / 2 - 7);
+    ctx.moveTo(canvas.width / 2 + 2.5, canvas.height / 2 - 4);
+    ctx.quadraticCurveTo(canvas.width / 2 + 3.5, canvas.height / 2 - 6, canvas.width / 2 + 2.5, canvas.height / 2 - 7);
     ctx.strokeStyle = "#FFD700";
     ctx.stroke();
 
     // Cup
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 25, canvas.height / 2 - 40);
-    ctx.lineTo(canvas.width / 2 - 15, canvas.height / 2 - 60);
-    ctx.lineTo(canvas.width / 2 + 15, canvas.height / 2 - 60);
-    ctx.lineTo(canvas.width / 2 + 25, canvas.height / 2 - 40);
+    ctx.moveTo(canvas.width / 2 - 2.5, canvas.height / 2 - 4);
+    ctx.lineTo(canvas.width / 2 - 1.5, canvas.height / 2 - 6);
+    ctx.lineTo(canvas.width / 2 + 1.5, canvas.height / 2 - 6);
+    ctx.lineTo(canvas.width / 2 + 2.5, canvas.height / 2 - 4);
     ctx.closePath();
     ctx.fill();
 }
