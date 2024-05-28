@@ -1,7 +1,15 @@
 startButton.addEventListener("click", () => {
     startButton.style.display = 'none'; // Hide the start button
     resizeCanvas(); // Ensure the canvas is correctly sized
-    draw();
+    
+    // Play a silent sound to unlock the audio context in mobile browsers
+    const silentSound = new Audio('data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA...');
+    silentSound.play().then(() => {
+        draw();
+    }).catch(err => {
+        console.error("Error in playing silent audio: ", err);
+        draw(); // Continue drawing even if the silent sound fails
+    });
 });
 
 function collisionDetection() {
