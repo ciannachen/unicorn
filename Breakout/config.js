@@ -1,18 +1,17 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-const startButton = document.getElementById("startButton");
+
+function getRandomColor() {
+    const hue = Math.floor(Math.random() * 360); // Hue value between 0 and 360
+    const saturation = 100; // Full saturation for vivid colors
+    const lightness = 50; // Medium lightness for bright colors
+
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+}
+
+
 
 const paddleHitSound = new Audio('hit.wav');
 const brickHitSound = paddleHitSound;
 const wallHitSound = paddleHitSound;
-
-// Set canvas size to fill the browser window
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    updateGameElements();
-    console.log('Canvas resized: ', canvas.width, canvas.height); // Debug log
-}
 
 let ballRadius;
 let x;
@@ -24,18 +23,16 @@ let paddleWidth;
 let paddleX;
 let rightPressed = false;
 let leftPressed = false;
-const brickRowCount = 3;
-const brickColumnCount = 5;
-let brickWidth;
-let brickHeight;
-const brickPadding = 10;
-const brickOffsetTop = 30;
-const brickOffsetLeft = 30;
+let brickRowCount;
+let brickColumnCount;
 let bricks = [];
 let gameOver = false;
 let gameWon = false;
 let previousPaddleX;
-
+const initialSpeed = 2; // Define an initial speed
+const brickPadding = 10; // Define brickPadding
+const brickOffsetTop = 30;
+const brickOffsetLeft = 30;
 function updateGameElements() {
     ballRadius = canvas.width * 0.02;
     x = canvas.width / 2;
@@ -62,16 +59,19 @@ function updateGameElements() {
             bricks[c][r] = { x: 0, y: 0, status: 1, color: getRandomColor() };
         }
     }
+
     console.log('Game elements updated'); // Debug log
 }
 
 
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
-
-function getRandomColor() {
-    const colors = ["#e74c3c", "#8e44ad", "#3498db", "#1abc9c", "#f1c40f", "#e67e22"];
-    return colors[Math.floor(Math.random() * colors.length)];
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    updateGameElements();
 }
 
-window.addEventListener('resize', resizeCanvas, false);
-resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas(); // Initialize the canvas size on load

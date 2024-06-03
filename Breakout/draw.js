@@ -100,15 +100,10 @@ function draw() {
         if (x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
 
-            // Adjust dx based on paddle movement
+            // Reset dx based on paddle movement
             const paddleMovement = paddleX - previousPaddleX;
-            const maxAngle = Math.PI / 4; // Maximum angle deviation (45 degrees)
-            const angle = maxAngle * (paddleMovement / paddleWidth);
-            dx += angle;
-
-            // Add a small random angle adjustment to prevent the ball from getting stuck
-            const randomAdjustment = (Math.random() - 0.5) * 0.1;
-            dx += randomAdjustment;
+            const speedFactor = 0.35; // Factor to influence the ball's speed based on paddle movement
+            dx = (dx > 0 ? 1 : -1) * Math.abs(dx + paddleMovement * speedFactor);
 
             // Ensure dx is not zero
             if (dx === 0) {
@@ -125,14 +120,31 @@ function draw() {
     x += dx;
     y += dy;
 
+    const paddleSpeed = 10; // Increase this value to make the paddle move faster
+
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
         previousPaddleX = paddleX; // Update previous paddle position
-        paddleX += 7;
+        paddleX += paddleSpeed;
     } else if (leftPressed && paddleX > 0) {
         previousPaddleX = paddleX; // Update previous paddle position
-        paddleX -= 7;
+        paddleX -= paddleSpeed;
     } else {
         previousPaddleX = paddleX; // Ensure previousPaddleX is always updated
+    }
+
+    if (levelCompleted) {
+        if (currentLevel < levels) {
+            currentLevel++;
+            winSound.play();
+            dx += speedIncrement; // Increase speed
+            dy += speedIncrement; // Increase speed
+            loadLevel(currentLevel); // Load next level
+            levelCompleted = false; // Reset level completion flag
+        } else {
+            gameWon = true;
+            gameOver = true;
+            winSound.play(); // Play the win sound for the final level
+        }
     }
 
     if (gameOver) {
@@ -140,9 +152,11 @@ function draw() {
             drawMessage("You Win!");
             drawTrophy();
         } else {
+            loseSound.play();
             drawMessage("Game Over");
         }
     } else {
         requestAnimationFrame(draw);
     }
+    // console.log('Draw loop executed'); // Debug log
 }
